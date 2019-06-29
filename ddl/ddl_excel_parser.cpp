@@ -2,6 +2,7 @@
 // Created by Rieon Ke on 2019-06-28.
 //
 
+#include "common.h"
 #include "ddl_excel_parser.h"
 #include <unistd.h>
 #include <iostream>
@@ -29,23 +30,19 @@ std::vector<dh::ddl_table> dh::ddl_excel_parser::parse(std::string &path) {
 
     unsigned long pos = path.find_last_of('.');
     if (pos == std::string::npos) {
-        throw ddl_exception("请选择xlsx结尾的Excel文件");
+        throw ddl_exception(_("File name must end with .xlsx"));
 //        std::cerr << "请选择xlsx结尾的Excel文件" << std::endl;
 //        exit(-2);
     }
 
     auto ext = path.substr(pos);
     if (!boost::iequals(ext, ".xlsx")) {
-        throw ddl_exception("请选择xlsx结尾的Excel文件");
-//        std::cerr << "请选择xlsx结尾的Excel文件" << std::endl;
-//        exit(-2);
+        throw ddl_exception(_("File name must end with .xlsx"));
     }
 
     struct stat buffer;
     if (stat(path.c_str(), &buffer) != 0) {
-//        std::cerr << "文件不存在" << std::endl;
-        throw ddl_exception("文件不存在");
-//        exit(-3);
+        throw ddl_exception(_("File does not exists"));
     }
 
 
@@ -56,7 +53,7 @@ std::vector<dh::ddl_table> dh::ddl_excel_parser::parse(std::string &path) {
     size_t sheet_count = wb.sheet_count();
 
     if (sheet_count <= 0) {
-        throw ddl_exception("Excel为空");
+        throw ddl_exception(_("Excel workbook is empty"));
 //        std::cerr << "empty workbook, exit" << std::endl;
 //        exit(1);
     }
@@ -152,8 +149,7 @@ std::vector<dh::ddl_table> dh::ddl_excel_parser::parse(std::string &path) {
                         t_col.is_primary_key = !val.empty();
 
                         if (t_col.is_primary_key && !table.primary_key.empty() && val != table.primary_key) {
-//                            std::cerr << table.name << "中主键的值必须相同" << std::endl;
-                            throw ddl_exception(table.name + "中主键的值必须相同");
+                            throw ddl_exception(table.name + " " + _("Primary key value must be unique"));
                         }
 
                         if (t_col.is_primary_key && table.primary_key.empty()) {

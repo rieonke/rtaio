@@ -1,3 +1,4 @@
+#include "common.h"
 #include <iostream>
 #include <boost/algorithm/string.hpp>
 #include <xlnt/xlnt.hpp>
@@ -10,6 +11,9 @@
 
 int main(int argc, char *argv[]) {
 
+    setlocale(LC_ALL, "");
+    bindtextdomain("rtaio_main", getenv("PWD"));
+    textdomain("rtaio_main");
 
     char *home = getenv("HOME");
 
@@ -17,12 +21,12 @@ int main(int argc, char *argv[]) {
 
     if (argc < 2) {
 
-        pfd::open_file open("选择Excel", home, {"Xlsx Files)", "*",});
+        pfd::open_file open(_("Choose Excel"), home, {"Xlsx Files)", "*",});
 
         auto p = open.result();
 
         if (p.empty()) {
-            std::cerr << "请选择文件" << std::endl;
+            std::cerr << _("Please choose excel") << std::endl;
             exit(0);
         } else {
             path = p[0];

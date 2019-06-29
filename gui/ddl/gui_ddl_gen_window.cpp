@@ -19,7 +19,7 @@
 #define DDL_APP_VERSION "0.1-20190628"
 
 void static ShowDDLGenAboutWindow(bool *p_open) {
-    if (!ImGui::Begin(DDL_APP_FULL_NAME "(" DDL_APP_NAME ")", p_open, ImGuiWindowFlags_AlwaysAutoResize)) {
+    if (!ImGui::Begin(_(DDL_APP_FULL_NAME), p_open, ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::End();
         return;
     }
@@ -59,12 +59,12 @@ void dh::gui::gui_ddl_gen_window::show(bool *open) {
         const char *home = getenv("HOME");
         std::string path;
 
-        pfd::open_file open("选择Excel", home, {"Xlsx Files)", "*",});
+        pfd::open_file open(_("Choose Excel"), home, {"Xlsx Files)", "*",});
 
         auto p = open.result();
 
         if (p.empty()) {
-            std::cerr << "请选择文件" << std::endl;
+            std::cerr << "Please choose an Excel file" << std::endl;
         } else {
             sql.erase();
             b_new_sql_copied = false;
@@ -83,7 +83,7 @@ void dh::gui::gui_ddl_gen_window::show(bool *open) {
             } catch (dh::ddl_exception &e) {
                 b_parse_excel_error = true;
                 parse_err_str = e.what();
-                ImGui::OpenPopup("Import Error");
+                ImGui::OpenPopup(_("Import Error"));
             }
 
 
@@ -95,13 +95,13 @@ void dh::gui::gui_ddl_gen_window::show(bool *open) {
 //
     if (b_parse_excel_error) {
 
-        if (ImGui::BeginPopupModal("Import Error", &b_parse_excel_error)) {
+        if (ImGui::BeginPopupModal(_("Import Error"), &b_parse_excel_error)) {
 
-            ImGui::Text("Import Error");
+            ImGui::Text(_("Import Error"));
             ImGui::SameLine();
             ImGui::Text("%s", parse_err_str.c_str());
 
-            if (ImGui::Button("Close")) {
+            if (ImGui::Button(_("Close"))) {
                 b_parse_excel_error = false;
                 ImGui::CloseCurrentPopup();
             }
@@ -115,7 +115,7 @@ void dh::gui::gui_ddl_gen_window::show(bool *open) {
 
         b_export_template_file = false;
 
-        pfd::select_folder select_folder("Export Template", getenv("HOME"));
+        pfd::select_folder select_folder(_("Export Template"), getenv("HOME"));
         auto folder = select_folder.result();
         if (!folder.empty()) {
 
@@ -124,20 +124,20 @@ void dh::gui::gui_ddl_gen_window::show(bool *open) {
 
             boost::filesystem::copy_file(full_path.string() + "/template.xlsx", export_path);
 
-            ImGui::OpenPopup("Export Template Success");
+            ImGui::OpenPopup(_("Export Template Success"));
             b_export_template_file_dialog = true;
 
         }
     }
 
-    if (ImGui::BeginPopupModal("Export Template Success", &b_export_template_file_dialog)) {
+    if (ImGui::BeginPopupModal(_("Export Template Success"), &b_export_template_file_dialog)) {
 
-        ImGui::Text("Export Success");
-        ImGui::Text("Location: ");
+        ImGui::Text(_("Export Success"));
+        ImGui::Text(_("Location :"));
         ImGui::SameLine();
         ImGui::Text("%s", export_path.c_str());
 
-        if (ImGui::Button("Close")) {
+        if (ImGui::Button(_("Close"))) {
             b_export_template_file_dialog = false;
             ImGui::CloseCurrentPopup();
         }
@@ -153,7 +153,7 @@ void dh::gui::gui_ddl_gen_window::show(bool *open) {
     ImGui::SetNextWindowSize(ImVec2(915, 650), ImGuiCond_FirstUseEver);
 
     // Main body of the Demo window starts here.
-    if (!ImGui::Begin("Database > DDL Generator", open, window_flags)) {
+    if (!ImGui::Begin(_("Database > DDL Generator"), open, window_flags)) {
         // Early out if the window is collapsed, as an optimization.
         ImGui::End();
         return;
@@ -168,14 +168,14 @@ void dh::gui::gui_ddl_gen_window::show(bool *open) {
     // Menu Bar
     if (ImGui::BeginMenuBar()) {
 
-        if (ImGui::BeginMenu("File")) {
-            ImGui::MenuItem("Import Excel", NULL, &b_show_import_file);
-            ImGui::MenuItem("Export Template", NULL, &b_export_template_file);
+        if (ImGui::BeginMenu(_("File"))) {
+            ImGui::MenuItem(_("Import Excel"), NULL, &b_show_import_file);
+            ImGui::MenuItem(_("Export Template"), NULL, &b_export_template_file);
             ImGui::EndMenu();
         }
 
-        if (ImGui::BeginMenu("Help")) {
-            ImGui::MenuItem("About", NULL, &b_show_about);
+        if (ImGui::BeginMenu(_("Help"))) {
+            ImGui::MenuItem(_("About"), NULL, &b_show_about);
             ImGui::EndMenu();
         }
 
@@ -192,19 +192,19 @@ void dh::gui::gui_ddl_gen_window::show(bool *open) {
 //        dh::gui::gui_utils::help_mark(
 //                "Import");
 
-        if (ImGui::Button("Copy")) {
+        if (ImGui::Button(_("Copy"))) {
             ImGui::SetClipboardText(text);
             b_new_sql_copied = true;
         }
 
         if (b_new_sql_copied) {
             ImGui::SameLine();
-            ImGui::Text("Copied");
+            ImGui::Text(_("Copied"));
         }
 
         static bool b_sql_read_only = true;
         ImGui::SameLine();
-        ImGui::Checkbox("Read Only", &b_sql_read_only);
+        ImGui::Checkbox(_("Read Only"), &b_sql_read_only);
 
         static TextEditor editor;
         static auto lang = TextEditor::LanguageDefinition::SQL();
@@ -217,7 +217,7 @@ void dh::gui::gui_ddl_gen_window::show(bool *open) {
 
         editor.SetReadOnly(b_sql_read_only);
 
-        editor.Render("TextEditor");
+        editor.Render(_("TextEditor"));
     }
 
 

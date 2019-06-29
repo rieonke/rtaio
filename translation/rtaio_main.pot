@@ -1,0 +1,191 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-29 22:39+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ddl/gui_ddl_gen_window.cpp:178 gui/ddl/gui_ddl_gen_window.cpp:178
+msgid "About"
+msgstr ""
+
+#: gui_main.cpp:192 gui/gui_main.cpp:192
+msgid "About Rtaio "
+msgstr ""
+
+#: ddl/main.cpp:24 ddl/main.cpp:24
+msgid "Choose Excel"
+msgstr ""
+
+#: ddl/gui_ddl_gen_window.cpp:104 ddl/gui_ddl_gen_window.cpp:140
+#: gui/ddl/gui_ddl_gen_window.cpp:104 gui/ddl/gui_ddl_gen_window.cpp:140
+msgid "Close"
+msgstr ""
+
+#: ddl/gui_ddl_gen_window.cpp:202 gui/ddl/gui_ddl_gen_window.cpp:202
+msgid "Copied"
+msgstr ""
+
+#. dh::gui::gui_utils::help_mark(
+#. "Import");
+#: gui_main.cpp:184 ddl/gui_ddl_gen_window.cpp:195
+#: gui/ddl/gui_ddl_gen_window.cpp:195 gui/gui_main.cpp:184
+msgid "Copy"
+msgstr ""
+
+#: gui_main.cpp:183 gui/gui_main.cpp:183
+msgid "Cut"
+msgstr ""
+
+#: gui_menu_window.cpp:44 gui/gui_menu_window.cpp:44
+msgid "DDL Generator"
+msgstr ""
+
+#: gui_menu_window.cpp:43 gui/gui_menu_window.cpp:43
+msgid "Database"
+msgstr ""
+
+#. Main body of the Demo window starts here.
+#: ddl/gui_ddl_gen_window.cpp:156 gui/ddl/gui_ddl_gen_window.cpp:156
+msgid "Database > DDL Generator"
+msgstr ""
+
+#: gui_main.cpp:179 gui/gui_main.cpp:179
+msgid "Edit"
+msgstr ""
+
+#: ddl/ddl_excel_parser.cpp:56
+msgid "Excel workbook is empty"
+msgstr ""
+
+#: gui_main.cpp:169 gui/gui_main.cpp:169
+msgid "Exit"
+msgstr ""
+
+#: ddl/gui_ddl_gen_window.cpp:135 gui/ddl/gui_ddl_gen_window.cpp:135
+msgid "Export Success"
+msgstr ""
+
+#: ddl/gui_ddl_gen_window.cpp:118 ddl/gui_ddl_gen_window.cpp:173
+#: gui/ddl/gui_ddl_gen_window.cpp:118 gui/ddl/gui_ddl_gen_window.cpp:173
+msgid "Export Template"
+msgstr ""
+
+#: ddl/gui_ddl_gen_window.cpp:127 ddl/gui_ddl_gen_window.cpp:133
+#: gui/ddl/gui_ddl_gen_window.cpp:127 gui/ddl/gui_ddl_gen_window.cpp:133
+msgid "Export Template Success"
+msgstr ""
+
+#: gui_main.cpp:168 ddl/gui_ddl_gen_window.cpp:171
+#: gui/ddl/gui_ddl_gen_window.cpp:171 gui/gui_main.cpp:168
+msgid "File"
+msgstr ""
+
+#: ddl/ddl_excel_parser.cpp:45
+msgid "File does not exists"
+msgstr ""
+
+#: ddl/ddl_excel_parser.cpp:33 ddl/ddl_excel_parser.cpp:40
+msgid "File name must end with .xlsx"
+msgstr ""
+
+#: ddl/main.cpp:18
+msgid "Hello World"
+msgstr ""
+
+#: gui_main.cpp:189 ddl/gui_ddl_gen_window.cpp:177
+#: gui/ddl/gui_ddl_gen_window.cpp:177 gui/gui_main.cpp:189
+msgid "Help"
+msgstr ""
+
+#: ddl/gui_ddl_gen_window.cpp:86 ddl/gui_ddl_gen_window.cpp:98
+#: ddl/gui_ddl_gen_window.cpp:100 gui/ddl/gui_ddl_gen_window.cpp:86
+#: gui/ddl/gui_ddl_gen_window.cpp:98 gui/ddl/gui_ddl_gen_window.cpp:100
+msgid "Import Error"
+msgstr ""
+
+#: ddl/gui_ddl_gen_window.cpp:172 gui/ddl/gui_ddl_gen_window.cpp:172
+msgid "Import Excel"
+msgstr ""
+
+#: ddl/gui_ddl_gen_window.cpp:136 gui/ddl/gui_ddl_gen_window.cpp:136
+msgid "Location :"
+msgstr ""
+
+#: gui_main.cpp:190 gui/gui_main.cpp:190
+msgid "Metrics"
+msgstr ""
+
+#: gui_main.cpp:185 gui/gui_main.cpp:185
+msgid "Paste"
+msgstr ""
+
+#: ddl/main.cpp:29 ddl/main.cpp:29
+msgid "Please choose excel"
+msgstr ""
+
+#: ddl/ddl_excel_parser.cpp:152
+msgid "Primary key value must be unique"
+msgstr ""
+
+#: ddl/gui_ddl_gen_window.cpp:207 gui/ddl/gui_ddl_gen_window.cpp:207
+msgid "Read Only"
+msgstr ""
+
+#: gui_main.cpp:181 gui/gui_main.cpp:181
+msgid "Redo"
+msgstr ""
+
+#: gui_main.cpp:175 gui/gui_main.cpp:175
+msgid "Status"
+msgstr ""
+
+#: gui_main.cpp:156 gui_main.cpp:191 gui/gui_main.cpp:156 gui/gui_main.cpp:191
+msgid "Style Editor"
+msgstr ""
+
+#: ddl/gui_ddl_gen_window.cpp:220 gui/ddl/gui_ddl_gen_window.cpp:220
+msgid "TextEditor"
+msgstr ""
+
+#. Main body of the Demo window starts here.
+#: gui_main.cpp:174 gui_menu_window.cpp:29 gui/gui_menu_window.cpp:29
+#: gui/gui_main.cpp:174
+msgid "Tools"
+msgstr ""
+
+#: gui_main.cpp:180 gui/gui_main.cpp:180
+msgid "Undo"
+msgstr ""
+
+#: gui_main.cpp:173 gui/gui_main.cpp:173
+msgid "View"
+msgstr ""
+
+#: gui_main.cpp:81 gui/gui_main.cpp:81
+msgid "display height"
+msgstr ""
+
+#: gui_main.cpp:80 gui/gui_main.cpp:80
+msgid "display width"
+msgstr ""
+
+#: gui_main.cpp:79 gui/gui_main.cpp:79
+msgid "height"
+msgstr ""
+
+#: gui_main.cpp:78 gui/gui_main.cpp:78
+msgid "width"
+msgstr ""

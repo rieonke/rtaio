@@ -29,9 +29,10 @@ if (STATIC)
 endif ()
 
 
+include_directories(include)
 include_directories(ddl)
 
-add_library(${PROJ_LIB} ddl/ddl_table.cpp ddl/ddl_table.h ddl/ddl_table_column.cpp ddl/ddl_table_column.h ddl/ddl_table_sql_generator.cpp ddl/ddl_table_sql_generator.h ddl/ddl_excel_parser.cpp ddl/ddl_excel_parser.h gui/gui.h ddl/ddl_exception.cpp ddl/ddl_exception.h)
+add_library(${PROJ_LIB} ddl/ddl_table.cpp ddl/ddl_table.h ddl/ddl_table_column.cpp ddl/ddl_table_column.h ddl/ddl_table_sql_generator.cpp ddl/ddl_table_sql_generator.h ddl/ddl_excel_parser.cpp ddl/ddl_excel_parser.h gui/gui.h ddl/ddl_exception.cpp ddl/ddl_exception.h include/common.h)
 add_executable(${PROJ_CLI} ddl/main.cpp)
 target_link_libraries(${PROJ_CLI} ${PROJ_LIB})
 
@@ -112,3 +113,17 @@ set(XLNT_DIR third_party/xlnt)
 add_subdirectory(${XLNT_DIR})
 include_directories(${XLNT_DIR}/include)
 target_link_libraries(${PROJ_LIB} xlnt)
+
+
+find_package(Intl REQUIRED)
+if (Intl_FOUND)
+    include_directories(${Intl_INCLUDE_DIRS})
+    target_link_libraries(${PROJ_CLI} ${Intl_LIBRARIES})
+    target_link_libraries(${PROJ_LIB} ${Intl_LIBRARIES})
+    target_link_libraries(${PROJ_GUI} ${Intl_LIBRARIES})
+endif ()
+
+#find_package(PKGCONFIG REQUIRED)
+#if (PKG_CONFIG_FOUND)
+#    pkg_check_modules(GETTEXT REQUIRED gettext)
+#endif ()

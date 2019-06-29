@@ -40,6 +40,12 @@ static void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 }
 
 int main(int, char **) {
+
+    //Setup intl
+    setlocale(LC_ALL, "zh_CN");
+    bindtextdomain("rtaio_main", getenv("PWD"));
+    textdomain("rtaio_main");
+
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
@@ -55,6 +61,9 @@ int main(int, char **) {
 //    glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 //    GLFWwindow *window = glfwCreateWindow(mode->width, mode->height, APP_FULL_NAME, NULL, NULL);
 
+//    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+
+
     GLFWwindow *window = glfwCreateWindow(1280, 720, APP_FULL_NAME, NULL, NULL);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
@@ -66,10 +75,10 @@ int main(int, char **) {
     glfwGetWindowSize(window, &width, &height);
     glfwGetFramebufferSize(window, &display_width, &display_height);
 
-    std::cout << "width:" << width << std::endl;
-    std::cout << "height:" << height << std::endl;
-    std::cout << "display_width:" << display_width << std::endl;
-    std::cout << "display_height:" << display_height << std::endl;
+    std::cout << _("width") << ":" << width << std::endl;
+    std::cout << _("height") << ":" << height << std::endl;
+    std::cout << _("display width") << ":" << display_width << std::endl;
+    std::cout << _("display height") << ":" << display_height << std::endl;
     float pixel_ratio = (float) display_width / (float) width;
 
 
@@ -117,12 +126,11 @@ int main(int, char **) {
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != NULL);
 
-    bool show_demo_window = true;
-    bool show_another_window = true;
+    static bool show_tools_window = true;
+    static bool show_status_overlay = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     // Main loop
-    double lasttime = glfwGetTime();
     while (!glfwWindowShouldClose(window)) {
         // Poll and handle events (inputs, window resize, etc.)
         // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
@@ -143,8 +151,9 @@ int main(int, char **) {
         static bool exit_app = false;
 
         if (show_app_metrics) { ImGui::ShowMetricsWindow(&show_app_metrics); }
+        if (show_status_overlay) { showRunStatus(&show_tools_window); }
         if (show_app_style_editor) {
-            ImGui::Begin("Style Editor", &show_app_style_editor);
+            ImGui::Begin(_("Style Editor"), &show_app_style_editor);
             ImGui::ShowStyleEditor();
             ImGui::End();
         }
@@ -156,30 +165,31 @@ int main(int, char **) {
         if (show_app_about) { ShowAboutWindow(&show_app_about); }
         if (ImGui::BeginMainMenuBar()) {
 
-            if (ImGui::BeginMenu("File")) {
-                ImGui::MenuItem("Exit", NULL, &exit_app);
+            if (ImGui::BeginMenu(_("File"))) {
+                ImGui::MenuItem(_("Exit"), NULL, &exit_app);
                 ImGui::EndMenu();
             }
 
-            if (ImGui::BeginMenu("View")) {
-                ImGui::MenuItem("Tools", NULL, &show_demo_window);
+            if (ImGui::BeginMenu(_("View"))) {
+                ImGui::MenuItem(_("Tools"), NULL, &show_tools_window);
+                ImGui::MenuItem(_("Status"), NULL, &show_status_overlay);
                 ImGui::EndMenu();
             }
 
-            if (ImGui::BeginMenu("Edit")) {
-                if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
-                if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+            if (ImGui::BeginMenu(_("Edit"))) {
+                if (ImGui::MenuItem(_("Undo"), "CTRL+Z")) {}
+                if (ImGui::MenuItem(_("Redo"), "CTRL+Y", false, false)) {}  // Disabled item
                 ImGui::Separator();
-                if (ImGui::MenuItem("Cut", "CTRL+X")) {}
-                if (ImGui::MenuItem("Copy", "CTRL+C")) {}
-                if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+                if (ImGui::MenuItem(_("Cut"), "CTRL+X")) {}
+                if (ImGui::MenuItem(_("Copy"), "CTRL+C")) {}
+                if (ImGui::MenuItem(_("Paste"), "CTRL+V")) {}
                 ImGui::EndMenu();
             }
 
-            if (ImGui::BeginMenu("Help")) {
-                ImGui::MenuItem("Metrics", NULL, &show_app_metrics);
-                ImGui::MenuItem("Style Editor", NULL, &show_app_style_editor);
-                ImGui::MenuItem("About Rtaio ", NULL, &show_app_about);
+            if (ImGui::BeginMenu(_("Help"))) {
+                ImGui::MenuItem(_("Metrics"), NULL, &show_app_metrics);
+                ImGui::MenuItem(_("Style Editor"), NULL, &show_app_style_editor);
+                ImGui::MenuItem(_("About Rtaio "), NULL, &show_app_about);
                 ImGui::EndMenu();
             }
 
@@ -187,7 +197,7 @@ int main(int, char **) {
         }
 
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (show_demo_window) dh::gui::gui_menu_window::show(&show_demo_window);
+        if (show_tools_window) dh::gui::gui_menu_window::show(&show_tools_window);
 
         // Rendering
         ImGui::Render();
@@ -209,10 +219,10 @@ int main(int, char **) {
         glfwSwapBuffers(window);
 
 
-        long sl = ((lasttime + 1.0 / TARGET_FPS) - glfwGetTime()) * 1000;
-        if (sl > 0)
-            std::this_thread::sleep_for(std::chrono::milliseconds(sl));
-        lasttime += 1.0 / TARGET_FPS;
+//        long sl = ((lasttime + 1.0 / TARGET_FPS) - glfwGetTime()) * 1000;
+//        if (sl > 0)
+//            std::this_thread::sleep_for(std::chrono::milliseconds(sl));
+//        lasttime += 1.0 / TARGET_FPS;
     }
 
     // Cleanup

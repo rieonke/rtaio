@@ -26,7 +26,7 @@ void dh::gui::gui_menu_window::show(bool *open) {
     ImGui::SetNextWindowSize(ImVec2(240, 650), ImGuiCond_FirstUseEver);
 
     // Main body of the Demo window starts here.
-    if (!ImGui::Begin("Tools", open, window_flags)) {
+    if (!ImGui::Begin(_("Tools"), open, window_flags)) {
         // Early out if the window is collapsed, as an optimization.
         ImGui::End();
         return;
@@ -40,8 +40,9 @@ void dh::gui::gui_menu_window::show(bool *open) {
     ImGui::Text(APP_FULL_NAME" (%s)", APP_VERSION);
     ImGui::Spacing();
 
-    if (ImGui::CollapsingHeader("Database")) {
-        ImGui::Checkbox("DDL Generator", &show_ddl_gen_window);      // Edit bools storing our window open/close state
+    if (ImGui::CollapsingHeader(_("Database"))) {
+        ImGui::Checkbox(_("DDL Generator"),
+                        &show_ddl_gen_window);      // Edit bools storing our window open/close state
     }
 
     // End of ShowDemoWindow()
