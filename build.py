@@ -20,6 +20,7 @@ libs = [
     lib("imgui", "https://github.com/ocornut/imgui/archive/v1.71.tar.gz ", "imgui.tar.gz"),
     lib("pfd", "https://github.com/samhocevar/portable-file-dialogs/archive/master.tar.gz", "pfd.tar.gz"),
     lib("imgui_code_editor", "https://github.com/BalazsJako/ImGuiColorTextEdit/archive/master.tar.gz", "imgui_code_editor.tar.gz"),
+    lib("libiconv", "https://github.com/LuaDist/libiconv/archive/master.tar.gz", "libiconv.tar.gz"),
 ]
 
 copy_files = [

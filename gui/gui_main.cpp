@@ -41,15 +41,28 @@ static void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 
 int main(int, char **) {
 
-    //Setup intl
-    setlocale(LC_ALL, "zh_CN");
-    bindtextdomain("rtaio_main", getenv("PWD"));
-    textdomain("rtaio_main");
-
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         return 1;
+
+    boost::filesystem::path full_path(boost::filesystem::current_path());
+    std::cout << full_path << std::endl;
+//    boost::locale::generator gen;
+
+    // Specify location of dictionaries
+//    gen.add_messages_path(".");
+//    gen.add_messages_domain("hello");
+//
+//    std::locale::global(gen(""));
+//    std::cout.imbue(std::locale());
+
+
+    //Setup intl
+    setlocale(LC_ALL, "");
+//
+    bindtextdomain("rtaio_main", full_path.string().c_str());
+    textdomain("rtaio_main");
 
 //    GLFWwindow *tmp_window = glfwCreateWindow(1280, 720, APP_FULL_NAME, NULL, NULL);
 //
@@ -113,9 +126,10 @@ int main(int, char **) {
     // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
 //    io.Fonts->AddFontFromFileTTF(, 18.0f);
 
-    boost::filesystem::path full_path(boost::filesystem::current_path());
 
-    std::string filename = full_path.string() + "/NotoSansCJKsc-Medium.otf";
+    boost::filesystem::path f_path(boost::filesystem::current_path());
+    std::string filename = f_path.string() + "/NotoSansCJKsc-Medium.otf";
+    std::cout << f_path << std::endl;
     io.Fonts->AddFontFromFileTTF(filename.c_str(), 20.0f * pixel_ratio, NULL, io.Fonts->GetGlyphRangesChineseFull());
     io.FontGlobalScale = 1.0 / pixel_ratio;
 
