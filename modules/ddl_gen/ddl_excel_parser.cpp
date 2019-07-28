@@ -2,8 +2,8 @@
 // Created by Rieon Ke on 2019-06-28.
 //
 
-#include "common.h"
-#include "ddl_excel_parser.h"
+#include "ddl_gen/ddl_gen.h"
+#include "ddl_gen/ddl_excel_parser.h"
 #include <unistd.h>
 #include <iostream>
 #include <sys/stat.h>

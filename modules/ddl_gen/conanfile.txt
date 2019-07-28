@@ -1,0 +1,9 @@
+[requires]
+xlnt/1.3.0@rieonke/testing
+gtest/1.8.1@bincrafters/stable
+
+[options]
+xlnt:shared=True
+
+[generators]
+cmake

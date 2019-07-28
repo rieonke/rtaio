@@ -6,13 +6,13 @@
 #include <iostream>
 #include <portable-file-dialogs.h>
 #include <unistd.h>
-#include <ddl/ddl_excel_parser.h>
 #include "gui/gui_utils.h"
 #include "gui_ddl_gen_window.h"
-#include "ddl/ddl_table_sql_generator.h"
 #include <boost/filesystem.hpp>
 #include <gui/gui.h>
 #include <TextEditor.h>
+#include <modules/ddl_gen/include/ddl_gen/ddl_excel_parser.h>
+#include <modules/ddl_gen/include/ddl_gen/ddl_table_sql_generator.h>
 
 #define DDL_APP_NAME "DDLGEN"
 #define DDL_APP_FULL_NAME  "DDL Generator"

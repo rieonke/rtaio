@@ -3,21 +3,37 @@ project(rtaio)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
-set(CMAKE_CXX_STANDARD 14)
+if(CMAKE_VERSION VERSION_LESS 3.0.0)
+    include(CheckCXXCompilerFlag)
+    check_cxx_compiler_flag(-std=c++14 COMPILER_SUPPORTS_CXX14)
+    check_cxx_compiler_flag(-std=c++0x COMPILER_SUPPORTS_CXX0X)
+    if(COMPILER_SUPPORTS_CXX14)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+    elseif(COMPILER_SUPPORTS_CXX0X)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+    endif()
+else()
+    SET(CMAKE_CXX_STANDARD 14)
+    SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+endif()
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
+add_subdirectory(modules/ddl_gen)
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
 #set(CMAKE_AUTOMOC ON)
 #set(CMAKE_AUTORCC ON)
 
 option(STATIC "Set to ON to build xlnt as a static library instead of a shared library" OFF)
-option(USER_SYSTEM_BOOST "User system boost library, default ON" ON)
+option(USER_SYSTEM_BOOST "User system boost library, default ON" OFF)
 option(GUI "GUI" ON)
-option(MAC_BUNDLE "Build macOS app bundle" OFF)
+option(MAC_BUNDLE "Build macOS app bundle" ON)
 
-set(GLFW_BUILD_EXAMPLES OFF)
 
-set(PROJ_LIB ${PROJECT_NAME}_lib)
-set(PROJ_CLI ${PROJECT_NAME}_cli)
+set(PROJ_LIB ddl_gen)
 set(PROJ_GUI ${PROJECT_NAME})
 set(PROJ_VERSION 0.0.1)
 set(PROJ_COPYRIGHT "By Rieon Ke")
@@ -33,11 +49,6 @@ endif ()
 
 
 include_directories(include)
-include_directories(ddl)
-
-add_library(${PROJ_LIB} ddl/ddl_table.cpp ddl/ddl_table.h ddl/ddl_table_column.cpp ddl/ddl_table_column.h ddl/ddl_table_sql_generator.cpp ddl/ddl_table_sql_generator.h ddl/ddl_excel_parser.cpp ddl/ddl_excel_parser.h gui/gui.h ddl/ddl_exception.cpp ddl/ddl_exception.h include/common.h)
-add_executable(${PROJ_CLI} ddl/main.cpp)
-target_link_libraries(${PROJ_CLI} ${PROJ_LIB})
 
 if (GUI)
 
@@ -53,9 +64,6 @@ if (GUI)
     file(COPY ${CMAKE_SOURCE_DIR}/translation/zh/LC_MESSAGES/rtaio_main.mo DESTINATION ${CMAKE_BINARY_DIR}/zh/LC_MESSAGES/)
 
 
-    # GLFW
-    add_subdirectory(third_party/glfw)
-    include_directories(third_party/glfw/include)
     include_directories(third_party/pfd)
     include_directories(third_party/imgui_code_editor)
 
@@ -76,8 +84,6 @@ if (GUI)
         include_directories(${OPENGL_INCLUDE_DIR})
         target_link_libraries(${PROJ_GUI} ${OPENGL_LIBRARIES})
     endif ()
-
-    target_link_libraries(${PROJ_GUI} glfw ${GLFW_LIBRARIES})
 
 
     #resources
@@ -133,33 +139,8 @@ if (USER_SYSTEM_BOOST)
 endif ()
 
 
-#add third party library
-set(XLNT_DIR third_party/xlnt)
-add_subdirectory(${XLNT_DIR})
-include_directories(${XLNT_DIR}/include)
-target_link_libraries(${PROJ_LIB} xlnt)
+#target_link_libraries(${PROJ_LIB} ${CONAN_LIBS})
 
-
-set(Iconv_INCLUDE_DIR /usr/include)
-set(Iconv_LIBRARY /usr/lib/libiconv.dylib)
-find_package(Iconv REQUIRED)
-if (${Iconv_FOUND})
-    set(Iconv_IS_BUILT_IN TRUE)
-    include_directories(${Iconv_INCLUDE_DIRS})
-    target_link_libraries(${PROJ_LIB} ${Iconv_LIBRARIES})
-    target_link_libraries(${PROJ_CLI} ${Iconv_LIBRARIES})
-    target_link_libraries(${PROJ_GUI} ${Iconv_LIBRARIES})
-endif ()
-
-set(Intl_INCLUDE_DIR /usr/local/include)
-set(Intl_LIBRARY /usr/local/lib/libintl.dylib)
-find_package(Intl REQUIRED)
-if (${Intl_FOUND})
-    include_directories(${Intl_INCLUDE_DIRS})
-    target_link_libraries(${PROJ_CLI} ${Intl_LIBRARIES})
-    target_link_libraries(${PROJ_LIB} ${Intl_LIBRARIES})
-    target_link_libraries(${PROJ_GUI} ${Intl_LIBRARIES})
-endif ()
 
 if (APPLE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")

@@ -15,12 +15,12 @@ class lib:
 
 
 libs = [
-    lib("xlnt", "https://github.com/tfussell/xlnt/archive/v1.3.0.tar.gz", "xlnt.tar.gz"),
-    lib("glfw", "https://github.com/glfw/glfw/archive/3.3.tar.gz", "glfw.tar.gz"),
+    # lib("xlnt", "https://github.com/tfussell/xlnt/archive/v1.3.0.tar.gz", "xlnt.tar.gz"),
+    # lib("glfw", "https://github.com/glfw/glfw/archive/3.3.tar.gz", "glfw.tar.gz"),
     lib("imgui", "https://github.com/ocornut/imgui/archive/v1.71.tar.gz ", "imgui.tar.gz"),
     lib("pfd", "https://github.com/samhocevar/portable-file-dialogs/archive/master.tar.gz", "pfd.tar.gz"),
     lib("imgui_code_editor", "https://github.com/BalazsJako/ImGuiColorTextEdit/archive/master.tar.gz", "imgui_code_editor.tar.gz"),
-    lib("libiconv", "https://github.com/LuaDist/libiconv/archive/master.tar.gz", "libiconv.tar.gz"),
+    # lib("libiconv", "https://github.com/LuaDist/libiconv/archive/master.tar.gz", "libiconv.tar.gz"),
 ]
 
 copy_files = [

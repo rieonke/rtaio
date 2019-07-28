@@ -2,7 +2,7 @@
 // Created by Rieon Ke on 2019-06-27.
 //
 
-#include "ddl_table_sql_generator.h"
+#include "ddl_gen/ddl_table_sql_generator.h"
 
 #define SQL_SPACE " "
 #define SQL_BR "\n"
